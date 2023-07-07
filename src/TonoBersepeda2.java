@@ -1,18 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Program TonoBersepeda2 digunakan untuk mencari kemungkinan posisi warung
- * pemberhentian terbaik
- * yang memenuhi syarat saat Tono bersepeda dengan jarak tempuh tertentu dan
- * batasan jarak istirahat.
- */
 public class TonoBersepeda2 {
-    /**
-     * Metode utama untuk menjalankan program.
-     *
-     * @param args Argumen baris perintah.
-     */
     public static void main(String[] args) {
         int[] posisiWarung = { 10, 25, 30, 40, 50, 75, 80, 110, 130 };
         int totalJarak = 140;
@@ -59,25 +48,34 @@ public class TonoBersepeda2 {
                 valid = false;
             }
 
-            // Memperbarui kemungkinanBerhenti jika ditemukan jumlah pemberhentian minimum
-            // baru
-            if (valid && tempatBerhentiSaatIni.size() < jumlahBerhentiMinimum) {
-                kemungkinanBerhenti.clear();
+            // Menambahkan subset pemberhentian saat ini ke daftar kemungkinan
+            if (valid) {
                 kemungkinanBerhenti.add(tempatBerhentiSaatIni);
-                jumlahBerhentiMinimum = tempatBerhentiSaatIni.size();
-            } else if (valid && tempatBerhentiSaatIni.size() == jumlahBerhentiMinimum) {
-                kemungkinanBerhenti.add(tempatBerhentiSaatIni);
+                if (tempatBerhentiSaatIni.size() < jumlahBerhentiMinimum) {
+                    jumlahBerhentiMinimum = tempatBerhentiSaatIni.size();
+                }
             }
         }
 
-        // Menampilkan kemungkinan posisi warung pemberhentian terbaik yang memenuhi
-        // syarat
-        System.out.println("Kemungkinan posisi warung pemberhentian terbaik yang memenuhi:");
+        // Menampilkan semua kemungkinan posisi warung pemberhentian
+        System.out.println("Kemungkinan posisi warung pemberhentian:");
         for (List<Integer> pemberhentian : kemungkinanBerhenti) {
             for (int tempatPemberhentian : pemberhentian) {
                 System.out.print(tempatPemberhentian + " km ");
             }
             System.out.println();
+        }
+
+        // Menampilkan kemungkinan posisi warung pemberhentian terbaik yang memenuhi
+        // syarat
+        System.out.println("\nKemungkinan posisi warung pemberhentian terbaik yang memenuhi:");
+        for (List<Integer> pemberhentian : kemungkinanBerhenti) {
+            if (pemberhentian.size() == jumlahBerhentiMinimum) {
+                for (int tempatPemberhentian : pemberhentian) {
+                    System.out.print(tempatPemberhentian + " km ");
+                }
+                System.out.println();
+            }
         }
     }
 }
